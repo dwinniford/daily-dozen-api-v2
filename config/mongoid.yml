@@ -3,7 +3,7 @@ development:
   clients:
     # Defines the default client. (required)
     default:
-      uri: mongodb+srv://dailyDozenUser:<%= Rails.application.credentials.dig(:mongodb, :password) %>@cluster0.gvkej.mongodb.net/myFirstDatabase?retryWrites=true&w=majority
+      uri: mongodb+srv://dailyDozenUser:<%= Rails.application.credentials.dig(:mongodb, :password) %>@cluster0.gvkej.mongodb.net/dailyDozen?retryWrites=true&w=majority
       # Defines the name of the default database that Mongoid can connect to.
       # (required).
       # database: daily_dozen_api_v2_development
