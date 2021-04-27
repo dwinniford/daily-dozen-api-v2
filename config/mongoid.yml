@@ -157,10 +157,12 @@ development:
 test:
   clients:
     default:
-      database: daily_dozen_api_v2_test
-      hosts:
-        - localhost:27017
+      uri: mongodb+srv://dailyDozenUser:<%= Rails.application.credentials.dig(:mongodb, :password) %>@cluster0.gvkej.mongodb.net/dailyDozenTest?retryWrites=true&w=majority
+      # database: daily_dozen_api_v2_test
+      # hosts:
+      #   - localhost:27017
       options:
+        server_selection_timeout: 5
         read:
           mode: :primary
         max_pool_size: 1
