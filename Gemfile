@@ -15,6 +15,9 @@ gem 'graphql_playground-rails', '~> 2.1'
 
 gem 'jwt', '~> 2.2', '>= 2.2.3'
 
+gem 'factory_bot_rails', '~> 6.1'
+gem 'faker', '~> 2.17'
+
 gem 'rspec-rails', '~> 5.0', '>= 5.0.1'
 
 gem 'mongoid', '~> 7.0.5'
