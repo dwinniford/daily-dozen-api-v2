@@ -7,6 +7,11 @@ abort("The Rails environment is running in production mode!") if Rails.env.produ
 require 'rspec/rails'
 # Add additional requires below this line. Rails is not loaded until this point!
 
+include ActiveJob::TestHelper
+
+FactoryBot::SyntaxRunner.class_eval do
+  include ActionDispatch::TestProcess
+end
 # Requires supporting ruby files with custom matchers and macros, etc, in
 # spec/support/ and its subdirectories. Files matching `spec/**/*_spec.rb` are
 # run as spec files by default. This means that files in spec/support that end
@@ -21,6 +26,9 @@ require 'rspec/rails'
 # require only the support files necessary.
 #
 # Dir[Rails.root.join('spec', 'support', '**', '*.rb')].sort.each { |f| require f }
+ActiveJob::Base.queue_adapter = :test
+FactoryBot.rewind_sequences
+Faker::UniqueGenerator.clear
 
 RSpec.configure do |config|
   # Remove this line to enable support for ActiveRecord
@@ -30,8 +38,8 @@ RSpec.configure do |config|
   # note if you'd prefer not to run each example within a transaction, you
   # should set use_transactional_fixtures to false.
   #
-  # config.fixture_path = "#{::Rails.root}/spec/fixtures"
-  # config.use_transactional_fixtures = true
+  config.fixture_path = "#{::Rails.root}/spec/fixtures"
+  config.use_transactional_fixtures = true
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -48,8 +56,22 @@ RSpec.configure do |config|
   # https://relishapp.com/rspec/rspec-rails/docs
   config.infer_spec_type_from_file_location!
 
+  # for paperclip
+  config.after(:suite) do
+    FileUtils.rm_rf(Rails.root.join('tmp', 'storage'))
+    # FileUtils.rm_rf("#{::Rails.root}/tmp/storage")
+  end
+
   # Filter lines from Rails gems in backtraces.
   config.filter_rails_from_backtrace!
   # arbitrary gems may also be filtered via:
   # config.filter_gems_from_backtrace("gem name")
+end
+
+# Adding headers to request helper
+def sign_in_test_headers(user)
+  headers = {}
+  headers['ACCEPT'] = 'application/json'
+  headers['Authorization'] = 'Bearer ' + JsonWebToken.encode({user_id: user.id}).to_s
+  headers
 end
