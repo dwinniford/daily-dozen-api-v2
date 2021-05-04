@@ -4,6 +4,7 @@ class User
   include BCrypt 
   field :name, type: String
   field :password_digest, type: String
+  has_many :meal_plans
 
   validates :name, presence: true, uniqueness: true, length: {minimum: 5, maximum: 40}
   validates :password, presence: true, length: {minimum: 5, maximum: 72}
