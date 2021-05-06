@@ -3,6 +3,7 @@ class GraphqlController < ApplicationController
   # This allows for outside API access while preventing CSRF attacks,
   # but you'll have to authenticate your user separately
   # protect_from_forgery with: :null_session
+  require 'json_web_token'
 
   def execute
     variables = prepare_variables(params[:variables])
@@ -10,13 +11,43 @@ class GraphqlController < ApplicationController
     operation_name = params[:operationName]
     context = {
       # Query context goes here, for example:
-      # current_user: current_user,
+      current_user: current_user,
+      decoded_token: decoded_token
     }
     result = DailyDozenApiV2Schema.execute(query, variables: variables, context: context, operation_name: operation_name)
     render json: result
   rescue => e
     raise e unless Rails.env.development?
     handle_error_in_development e
+  end
+
+  def current_user 
+    @current_user = nil 
+    if decoded_token
+      data = decoded_token
+      user = User.find(id: data[:user_id]) if data[:user_id].present?
+      if data[:user_id].present? && !user.nil?
+        @current_user ||= user
+      end
+    end
+  end
+
+  def decoded_token
+    header = request.headers['Authorization']
+    header = header.split(' ').last if header 
+    if header 
+      begin
+        # code that may raise an exception
+        @decoded_token ||= JsonWebToken.decode(header)
+        # handle expected errors
+      rescue JWT::DecodeError => e
+        raise GraphQL::ExecutionError.new(e.message)
+      rescue StandarError => e 
+        raise GraphQL::ExecutionError.new(e.message)
+      rescue e
+        raise GraphQL::ExecutionError.new(e.message)
+      end
+    end 
   end
 
   private
