@@ -1,7 +1,7 @@
 module Queries
     module Users
         class Me < BaseQuery
-            definition "show logged in user"
+            description "show logged in user"
 
             # outputs
             type Types::UserType, null: false
