@@ -19,7 +19,6 @@ module Queries
                     post '/graphql', params: {query: query}, headers: headers
                     expect(response).to have_http_status(200)
                     json = JSON.parse(response.body)
-                    byebug
                     expect(json["data"]["mealPlanShow"]["id"]).to eql meal_plan._id.to_s 
 
                 end
