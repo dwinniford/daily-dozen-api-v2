@@ -5,4 +5,8 @@ class Recipe
   field :ingredient_lines, type: Array
   field :source, type: String
   field :image, type: String
+
+  belongs_to :meal_plan
+
+  validates :url, presence: true
 end
