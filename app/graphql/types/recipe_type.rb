@@ -6,5 +6,6 @@ module Types
     field :source, String, null: false, desciption: "Name of the source for the recipe"
     field :ingredient_lines, [String], null: false, description: "List of ingredients for the recipe"
     field :image, String, null: false, description: "Image for the recipe"
+    field :meal_plan, Types::MealPlanType, null: true, description: "Parent meal plan of the recipe"
   end
 end
