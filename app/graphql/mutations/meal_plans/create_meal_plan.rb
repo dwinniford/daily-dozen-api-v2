@@ -11,7 +11,11 @@ module Mutations
 
             def resolve(input: nil)
                 authenticate_user
-                meal_plan = context[:current_user].meal_plans.build(input.to_h)
+                # byebug
+                meal_plan = context[:current_user].meal_plans.build(title: input.title)
+                input.recipes.each { |r|
+                    meal_plan.recipes.build(r.to_h)
+                }
                 if meal_plan.save 
                     {meal_plan: meal_plan}
                 else

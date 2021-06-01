@@ -11,9 +11,18 @@ module Mutations
 
                     query = <<~GQL 
                     mutation {
-                        createMealPlan(input: {title: "test meal plan"}) {
+                        createMealPlan(input: {title: "test meal plan", recipes: [
+                            {label: "Recipe 1 Label", url: "testurl"}
+                            ]
+                            }) {
                             mealPlan {
                                 id
+                                recipes {
+                                    label
+                                    url
+                                    id
+                                }
+                                
                             }
                         }
                     }
@@ -23,6 +32,7 @@ module Mutations
                     json = JSON.parse(response.body)
                     # byebug
                     expect(json['data']['createMealPlan']['mealPlan']['id']).not_to be_nil 
+                    expect(json['data']['createMealPlan']['mealPlan']['recipes'][0]['id']).not_to be_nil
                 end 
             end
         end
