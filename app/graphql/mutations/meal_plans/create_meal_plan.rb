@@ -19,7 +19,7 @@ module Mutations
                 if meal_plan.save 
                     {meal_plan: meal_plan}
                 else
-                    raise GraphQL:ExecutionError.new(meal_plan.errors.full_messages.join(","))
+                    raise GraphQL::ExecutionError.new(meal_plan.errors.full_messages.join(","))
                 end
             end
             

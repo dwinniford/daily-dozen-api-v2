@@ -15,7 +15,7 @@ module Mutations
                 if meal_plan && meal_plan.destroy
                     {success: true}
                 else
-                    raise GraphQL:ExecutionError.new("there was an error deleting the meal plan")
+                    raise GraphQL::ExecutionError.new("there was an error deleting the meal plan")
                 end
             end
         end
