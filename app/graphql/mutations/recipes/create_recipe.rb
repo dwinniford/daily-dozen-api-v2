@@ -4,6 +4,7 @@ module Mutations
             description "create recipe for an existing meal plan"
             
             argument :input, Types::Inputs::RecipeInput, required: true 
+            # argument :meal_plan_id, String, required: true
 
             field :recipe, Types::RecipeType, null: false
 
