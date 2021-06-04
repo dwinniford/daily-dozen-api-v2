@@ -16,6 +16,9 @@ module Mutations
                 input.recipes.each { |r|
                     meal_plan.recipes.build(r.to_h)
                 }
+                input.tags.each { |t| 
+                    meal_plan.tags.build(t.to_h)
+                }
                 if meal_plan.save 
                     {meal_plan: meal_plan}
                 else
