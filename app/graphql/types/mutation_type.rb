@@ -14,5 +14,6 @@ module Types
 
     #Tags
     field :create_tag, mutation: Mutations::Tags::CreateTag
+    field :delete_tag, mutation: Mutations::Tags::DeleteTag
   end
 end
