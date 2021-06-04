@@ -11,5 +11,8 @@ module Types
     #Recipes
     field :create_recipe, mutation: Mutations::Recipes::CreateRecipe
     field :delete_recipe, mutation: Mutations::Recipes::DeleteRecipe
+
+    #Tags
+    field :create_tag, mutation: Mutations::Tags::CreateTag
   end
 end
