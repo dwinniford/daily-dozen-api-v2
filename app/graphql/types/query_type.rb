@@ -11,5 +11,6 @@ module Types
     field :me, resolver: Queries::Users::Me 
     field :user_meal_plans, resolver: Queries::MealPlans::UserMealPlans
     field :meal_plan_show, resolver: Queries::MealPlans::MealPlanShow
+    field :meal_plans_all, resolver: Queries::MealPlans::MealPlansAll
   end
 end
