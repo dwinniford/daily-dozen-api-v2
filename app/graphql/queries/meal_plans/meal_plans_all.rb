@@ -6,7 +6,7 @@ module Queries
             type [Types::MealPlanType], null: true 
 
             def resolve 
-                authenticate_user
+                # authenticate_user
                 # byebug
                 MealPlan.all.to_a
             end
