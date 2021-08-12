@@ -7,11 +7,12 @@ module Mutations
             argument :input, Types::Inputs::MealPlanInput, required: true 
 
             #outputs
-            field :meal_plan, Types::MealPlanType, null: false 
+            field :meal_plan, Types::MealPlanType, null: true 
 
             def resolve(input: nil)
-                authenticate_user
                 # byebug
+                authenticate_user
+                
                 meal_plan = context[:current_user].meal_plans.build(title: input.title)
                 input.recipes.each { |r|
                     meal_plan.recipes.build(r.to_h)
