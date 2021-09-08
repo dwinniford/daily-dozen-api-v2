@@ -2,8 +2,8 @@ class MealPlan
   include Mongoid::Document
   field :title, type: String
   belongs_to :user 
-  has_many :recipes, autosave: true
-  has_many :tags, autosave: true
+  embeds_many :recipes
+  embeds_many :tags
 
   validates :title, presence: true
 end

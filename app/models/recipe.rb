@@ -6,7 +6,7 @@ class Recipe
   field :source, type: String
   field :image, type: String
 
-  belongs_to :meal_plan
+  embedded_in :meal_plan
 
   validates :url, presence: true
 end

@@ -5,7 +5,7 @@ class Tag
   field :servings, type: Integer
   field :ingredient, type: String
 
-  belongs_to :meal_plan
+  embedded_in :meal_plan
 
   validates :recipe_url, presence: true 
   validates :parent, presence: true 
