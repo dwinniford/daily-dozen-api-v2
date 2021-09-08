@@ -7,6 +7,8 @@ module Mutations
                 it 'deletes a users meal plan' do 
                     user = FactoryBot.create(:user)
                     meal_plan = FactoryBot.create(:meal_plan, user_id: user.id)
+                    meal_plan.recipes.create(FactoryBot.attributes_for(:recipe)) 
+                    meal_plan.tags.create(FactoryBot.attributes_for(:tag))
                     headers = sign_in_test_headers user 
                     query = <<~GQL 
                     mutation {
@@ -19,6 +21,8 @@ module Mutations
                     expect(response).to have_http_status(200)
                     json = JSON.parse(response.body)
                     expect(json["data"]["deleteMealPlan"]["success"]).to be_truthy
+                    # byebug
+                    
                 end 
             end 
         end
