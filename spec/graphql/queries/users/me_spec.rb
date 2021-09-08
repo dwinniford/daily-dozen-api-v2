@@ -7,8 +7,8 @@ module Queries
                 it "returns the logged in users data" do 
                     user = FactoryBot.create(:user)
                     meal_plan = FactoryBot.create(:meal_plan, user_id: user.id)
-                    recipe = FactoryBot.create(:recipe, meal_plan_id: meal_plan.id)
-                    tag = FactoryBot.create(:tag, meal_plan_id: meal_plan.id)
+                    recipe = meal_plan.recipes.create(FactoryBot.attributes_for(:recipe))
+                    tag = meal_plan.tags.create(FactoryBot.attributes_for(:tag))
                     headers = sign_in_test_headers user 
                     query = <<~GQL 
                     query {
