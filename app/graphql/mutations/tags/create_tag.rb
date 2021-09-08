@@ -12,7 +12,7 @@ module Mutations
 
                 meal_plan = context[:current_user].meal_plans.find(input.meal_plan_id)
                 if meal_plan
-                    tag = meal_plan.tags.build(input.to_h)
+                    tag = meal_plan.tags.build(input.to_h.except(:meal_plan_id))
                     if tag.save 
                         {tag: tag}
                     else
