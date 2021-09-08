@@ -13,7 +13,7 @@ module Mutations
 
                 meal_plan = context[:current_user].meal_plans.find(input.meal_plan_id)
                 if meal_plan
-                    recipe = meal_plan.recipes.build(input.to_h)
+                    recipe = meal_plan.recipes.build(input.to_h.except(:meal_plan_id))
                     if recipe.save 
                         {recipe: recipe}
                     else
