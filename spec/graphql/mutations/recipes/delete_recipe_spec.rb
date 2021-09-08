@@ -7,7 +7,7 @@ module Mutations
                 it 'deletes a recipe from a meal plan' do 
                     user = FactoryBot.create(:user)
                     meal_plan = FactoryBot.create(:meal_plan, user_id: user.id)
-                    recipe = FactoryBot.create(:recipe, meal_plan_id: meal_plan.id)
+                    recipe = meal_plan.recipes.create(FactoryBot.attributes_for(:recipe))
                     headers = sign_in_test_headers user 
 
                     query = <<~GQL
