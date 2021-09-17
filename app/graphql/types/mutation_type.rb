@@ -7,6 +7,7 @@ module Types
     # MealPlans
     field :create_meal_plan, mutation: Mutations::MealPlans::CreateMealPlan
     field :delete_meal_plan, mutation: Mutations::MealPlans::DeleteMealPlan
+    field :update_meal_plan, mutation: Mutations::MealPlans::UpdateMealPlan
 
     #Recipes
     field :create_recipe, mutation: Mutations::Recipes::CreateRecipe
